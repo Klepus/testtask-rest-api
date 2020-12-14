@@ -1,4 +1,4 @@
-# Intership test task:
+# Internship test task:
 
 CRUD, REST Api
 
