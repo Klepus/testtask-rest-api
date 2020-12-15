@@ -1,6 +1,8 @@
 # Internship test task:
 
-CRUD, REST Api
+CRUD, 
+
+REST Api
 
 # Technologies:
 Spring MVC,
