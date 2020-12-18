@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/rest")
 public class ShipController {
 
     private ShipService shipService;
@@ -23,7 +24,7 @@ public class ShipController {
         this.shipService = shipService;
     }
 
-    @GetMapping(path = "/rest/ships")
+    @GetMapping(path = "/ships")
     public List<Ship> getAllShips(@RequestParam(value = "name", required = false) String name,
                                   @RequestParam(value = "planet", required = false) String planet,
                                   @RequestParam(value = "shipType", required = false) ShipType shipType,
@@ -48,7 +49,7 @@ public class ShipController {
         return shipService.getShipsPage(sortedShips, pageNumber, pageSize);
     }
 
-    @GetMapping(path = "/rest/ships/count")
+    @GetMapping(path = "/ships/count")
     public Integer getShipsCount(@RequestParam(value = "name", required = false) String name,
                                  @RequestParam(value = "planet", required = false) String planet,
                                  @RequestParam(value = "shipType", required = false) ShipType shipType,
@@ -65,7 +66,7 @@ public class ShipController {
                 minCrewSize, maxCrewSize, minRating, maxRating).size();
     }
 
-    @PostMapping(path = "/rest/ships")
+    @PostMapping(path = "/ships")
     @ResponseBody
     public ResponseEntity<Ship> createShip(@RequestBody Ship ship) {
         if (!shipService.isShipValid(ship)) {
@@ -82,7 +83,7 @@ public class ShipController {
         return new ResponseEntity<>(savedShip, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/rest/ships/{id}")
+    @GetMapping(path = "/ships/{id}")
     public ResponseEntity<Ship> getShip(@PathVariable(value = "id") String pathId) {
         final Long id = convertIdToLong(pathId);
         if (id == null || id <= 0) {
@@ -95,7 +96,7 @@ public class ShipController {
         return new ResponseEntity<>(ship, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/rest/ships/{id}")
+    @PostMapping(path = "/ships/{id}")
     @ResponseBody
     public ResponseEntity<Ship> updateShip(@PathVariable(value = "id") String pathId, @RequestBody Ship ship) {
         final ResponseEntity<Ship> entity = getShip(pathId);
@@ -113,7 +114,7 @@ public class ShipController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/rest/ships/{id}")
+    @DeleteMapping(path = "/ships/{id}")
     public ResponseEntity<Ship> deleteShip(@PathVariable(value = "id") String pathId) {
         final ResponseEntity<Ship> entity = getShip(pathId);
         final Ship savedShip = entity.getBody();
